@@ -98,24 +98,32 @@ class AuthController extends Controller
         ]);
     }
 
-    public function updateProfile( Request $request ){
+    public function updateProfile(Request $request)
+    {
         try {
             $validator = Validator::make($request->all(), [
-                'name' => 'required|string|between:2,100',
-                'email' => 'required|string|email|max:100|unique:users,id'.$request->user()->id,
+                'name'      =>  'min:2|max:45|unique:users,id,' . $request->user()->id,
+                'email'     =>  'string|email|max:100|unique:users,id,' . $request->user()->id,
+                'password'  =>  'string|min:6|unique:users,id,' . $request->user()->id,
             ]);
-            if($validator->fails()){
-                $error = $validator->errors()->all()[0];
-                return response()->json(['status'=>'false','message'=>$error,'data'=>[]],422);
-            }else{
+            if ($validator->fails()) {
+                return response()->json($validator->errors(), 422);
+            } else {
                 $user = User::find($request->user()->id);
-                $user->name = $request->name;
-                $user->email = $request->email;
+                if ($request->name) {
+                    $user->name     =   $request->name;
+                }
+                if ($request->email) {
+                    $user->email    =   $request->email;
+                }
+                if ($request->password) {
+                    $user->password =   bcrypt($request->password);
+                }
                 $user->update();
-                return response()->json(['status'=>'true','message'=>"Profile Update!",'data'=>$user]);
+                return response()->json(['status' => 'true', 'message']);
             }
-        }catch(\Exception $e){
-            return response()->json(['status'=>'false','message'=>$e->getMessage(),'data'=>[]],500);
+        } catch (\Exception $e) {
+            return response()->json(['status' => 'false', "message" => $e->getMessage(), 'data' => []], 500);
         }
     }
 }
