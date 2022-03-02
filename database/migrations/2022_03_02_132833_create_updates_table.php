@@ -15,8 +15,8 @@ class CreateUpdatesTable extends Migration
     {
         Schema::create('updates', function (Blueprint $table) {
             $table->id();
-            $table->string('subject');
             $table->string('email')->unique();
+            $table->string('subject');
             $table->timestamps();
             $table->softDeletes();
         });
