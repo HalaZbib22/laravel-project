@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateUpdatesTable extends Migration
+class CreateMessagesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,11 @@ class CreateUpdatesTable extends Migration
      */
     public function up()
     {
-        Schema::create('updates', function (Blueprint $table) {
+        Schema::create('messages', function (Blueprint $table) {
             $table->id();
             $table->string('email')->unique();
             $table->string('subject');
+            $table->string('message');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -29,6 +30,6 @@ class CreateUpdatesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('updates');
+        Schema::dropIfExists('messages');
     }
 }
