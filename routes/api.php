@@ -2,6 +2,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\MainController;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -22,4 +23,4 @@ Route::group([
     Route::post('/refresh', [AuthController::class, 'refresh']);
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
 });
-Route::post('/update', [MainController::class, "Updated"]);
+Route::post('/contactus', [MainController::class, "Messaged"])->name("api:contactus");

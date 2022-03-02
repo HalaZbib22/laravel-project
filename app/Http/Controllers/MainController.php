@@ -4,17 +4,18 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Update;
+use App\Models\Message;
 
 class MainController extends Controller
 {
-    function Updated(Request $request){
+    function Messaged(Request $request){
         $data = $request->all();
 
-        $update = new Update;
-        $update->subject = $data["subject"];
-        $update->job = $data["job"];
-        $clown->save();
+        $msg = new Message;
+        $msg->email = $data["email"];
+        $msg->subject = $data["subject"];
+        $msg->message = $data["message"];
+        $msg->save();
 
         return response()->json(["success" => true]);
     }
