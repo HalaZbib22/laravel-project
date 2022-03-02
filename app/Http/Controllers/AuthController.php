@@ -111,13 +111,13 @@ class AuthController extends Controller
             } else {
                 $user = User::find($request->user()->id);
                 if ($request->name) {
-                    $user->name     =   $request->name;
+                    $user->name = $request->name;
                 }
                 if ($request->email) {
-                    $user->email    =   $request->email;
+                    $user->email = $request->email;
                 }
                 if ($request->password) {
-                    $user->password =   bcrypt($request->password);
+                    $user->password = bcrypt($request->password);
                 }
                 $user->update();
                 return response()->json(['status' => 'true', 'message']);
