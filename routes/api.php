@@ -24,4 +24,4 @@ Route::group([
     Route::get('/user-profile', [AuthController::class, 'userProfile']);    
     Route::post('/update', [AuthController::class, "updateProfile"]);
 });
-Route::post('/contactus', [MainController::class, "Messaged"])->name("api:contactus");
+Route::post('/contact-us', [MainController::class, "Messaged"])->name("api:contact-us");
